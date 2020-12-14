@@ -1,0 +1,48 @@
+<html>
+    <head>
+        <style>
+            label{
+                color: white;
+                font-size: 20px;
+                font-family: 'Times New Roman', Times, serif;
+            }
+            form{
+                margin-top: 10%;
+            }
+            .in1, #log{
+                height: 5%;
+                width: 30%;
+                border-radius: 5px;
+                background-color: #00000066;
+                outline: none;
+                border: 2px solid black;
+                color: white;
+            }
+            #log{
+                background-color: indianred;
+            }
+        </style>
+    </head>
+    <body>
+        {% include "nav.html" %}
+        {% block head %}
+        {% endblock %}
+        <center>>
+        <form method="POST" action="/aftersignup/">
+            <h3 style="color: cadetblue;">{{ msg }}</h3>
+            <label>Enter your First Name</label><br>
+            <input type="text" name="fname" class="in1"><br><br>
+            <label>Enter your Last Name</label><br>
+            <input type="text" name="lname" class="in1"><br><br>
+            <label>Enter your Email</label><br>
+            <input type="email" name="email" class="in1"><br><br>
+            <label>Enter your Password</label><br>
+            <input type="password" name="passwd" class="in1"><br>
+            <small style="color: white;">Password must be 8 characters long with all password conditions</small><br><br>
+            <label>Choose your gender</label><br>
+            <input type="radio" name="gender" value="male"><label>MALE</label><input type="radio" name="gender" value="female"><label>FEMALE</label<br><br>
+            <input type="submit" value="REGISTER" id="log">
+        </form>
+        </center>
+    </body>
+</html>

@@ -1,0 +1,379 @@
+
+Setting environment for using XAMPP for Windows.
+Simran Grover@LAPTOP-JS358S5T c:\xampp
+# mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 2
+Server version: 10.1.21-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2016, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> use batch11am;
+Database changed
+MariaDB [batch11am]> show tables;
++---------------------+
+| Tables_in_batch11am |
++---------------------+
+| address             |
+| fees                |
+| student             |
++---------------------+
+3 rows in set (0.00 sec)
+
+MariaDB [batch11am]> select subject from student;
++---------+
+| subject |
++---------+
+| AWS     |
+| Python  |
+| Cloud   |
+| AWS     |
+| Cloud   |
+| Python  |
+| Python  |
+| Linux   |
+| AWS     |
++---------+
+9 rows in set (0.06 sec)
+
+MariaDB [batch11am]> select distinct subject from student;
++---------+
+| subject |
++---------+
+| AWS     |
+| Python  |
+| Cloud   |
+| Linux   |
++---------+
+4 rows in set (0.00 sec)
+
+MariaDB [batch11am]> select * from student group by subject;
++----+--------+--------+------+---------+
+| id | fname  | lname  | age  | subject |
++----+--------+--------+------+---------+
+|  1 | simran | grover |   20 | AWS     |
+|  3 | Ajay   | Gupta  |   22 | Cloud   |
+|  8 | Aman   | Gupta  |   22 | Linux   |
+|  2 | Sahil  | Grover |   22 | Python  |
++----+--------+--------+------+---------+
+4 rows in set (0.00 sec)
+
+MariaDB [batch11am]> select * from student;
++----+--------+--------+------+---------+
+| id | fname  | lname  | age  | subject |
++----+--------+--------+------+---------+
+|  1 | simran | grover |   20 | AWS     |
+|  2 | Sahil  | Grover |   22 | Python  |
+|  3 | Ajay   | Gupta  |   22 | Cloud   |
+|  4 | Vivek  | Uniyal |   21 | AWS     |
+|  5 | Mihir  | Mehta  |   23 | Cloud   |
+|  6 | Haresh | Parmar |   23 | Python  |
+|  7 | Daivat | Shah   |   19 | Python  |
+|  8 | Aman   | Gupta  |   22 | Linux   |
+|  9 | Akshay | Mehta  |   22 | AWS     |
++----+--------+--------+------+---------+
+9 rows in set (0.00 sec)
+
+MariaDB [batch11am]> select subject, count(*) from student group by subject;
++---------+----------+
+| subject | count(*) |
++---------+----------+
+| AWS     |        3 |
+| Cloud   |        2 |
+| Linux   |        1 |
+| Python  |        3 |
++---------+----------+
+4 rows in set (0.00 sec)
+
+MariaDB [batch11am]> select subject, count(*) from student group by subject having count(*)<=2;
++---------+----------+
+| subject | count(*) |
++---------+----------+
+| Cloud   |        2 |
+| Linux   |        1 |
++---------+----------+
+2 rows in set (0.00 sec)
+
+MariaDB [batch11am]> select city, count(*) from address;
++--------+----------+
+| city   | count(*) |
++--------+----------+
+| jaipur |        7 |
++--------+----------+
+1 row in set (0.02 sec)
+
+MariaDB [batch11am]> select city, count(*) from address group by city;
++-----------+----------+
+| city      | count(*) |
++-----------+----------+
+| ahemdabad |        1 |
+| delhi     |        2 |
+| jaipur    |        4 |
++-----------+----------+
+3 rows in set (0.00 sec)
+
+MariaDB [batch11am]> select id,,fname,fees,paid from student inner join fees on student.id = fees.sid;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'fname,fees,paid from student inner join fees on student.id = fees.sid' at line 1
+MariaDB [batch11am]> select id,fname,fees,paid from student inner join fees on student.id = fees.sid;
++----+--------+-------+------+
+| id | fname  | fees  | paid |
++----+--------+-------+------+
+|  1 | simran | 12000 | 5000 |
+|  2 | Sahil  | 15000 | 7000 |
+|  5 | Mihir  | 10000 | 5000 |
+|  7 | Daivat |  7000 | 3500 |
+|  3 | Ajay   | 11000 | 5600 |
++----+--------+-------+------+
+5 rows in set (0.08 sec)
+
+MariaDB [batch11am]> create view temp_view as select id,fname,fees,paid from student inner join fees on student.id = fees.sid;
+Query OK, 0 rows affected (0.47 sec)
+
+MariaDB [batch11am]> show tables;
++---------------------+
+| Tables_in_batch11am |
++---------------------+
+| address             |
+| fees                |
+| student             |
+| temp_view           |
++---------------------+
+4 rows in set (0.00 sec)
+
+MariaDB [batch11am]> select * from temp_view;
++----+--------+-------+------+
+| id | fname  | fees  | paid |
++----+--------+-------+------+
+|  1 | simran | 12000 | 5000 |
+|  2 | Sahil  | 15000 | 7000 |
+|  5 | Mihir  | 10000 | 5000 |
+|  7 | Daivat |  7000 | 3500 |
+|  3 | Ajay   | 11000 | 5600 |
++----+--------+-------+------+
+5 rows in set (0.00 sec)
+
+MariaDB [batch11am]> select fname from temp_view where paid>4000;
++--------+
+| fname  |
++--------+
+| simran |
+| Sahil  |
+| Mihir  |
+| Ajay   |
++--------+
+4 rows in set (0.00 sec)
+
+MariaDB [batch11am]> select fname from temp_view where paid>6000;
++-------+
+| fname |
++-------+
+| Sahil |
++-------+
+1 row in set (0.00 sec)
+
+MariaDB [batch11am]> drop view temp_view;
+Query OK, 0 rows affected (0.00 sec)
+
+MariaDB [batch11am]> show tables;
++---------------------+
+| Tables_in_batch11am |
++---------------------+
+| address             |
+| fees                |
+| student             |
++---------------------+
+3 rows in set (0.00 sec)
+
+MariaDB [batch11am]> create view temp_view as select id,fname,fees,paid from student inner join fees on student.id = fees.sid;
+Query OK, 0 rows affected (0.16 sec)
+
+MariaDB [batch11am]> insert into temp_view values(10, "abc", 12000, 4000);
+ERROR 1394 (HY000): Can not insert into join view 'batch11am.temp_view' without fields list
+MariaDB [batch11am]> select * from fees where fees between 5000 and 10000;
++-----+-----+-------+----------+------+
+| fid | sid | fees  | discount | paid |
++-----+-----+-------+----------+------+
+| 103 |   5 | 10000 |     1500 | 5000 |
+| 104 |   7 |  7000 |     1000 | 3500 |
++-----+-----+-------+----------+------+
+2 rows in set (0.00 sec)
+
+MariaDB [batch11am]> SELECT id AS STUDENT_ID,fname AS STUDENT_NAME FROM student;
++------------+--------------+
+| STUDENT_ID | STUDENT_NAME |
++------------+--------------+
+|          1 | simran       |
+|          2 | Sahil        |
+|          3 | Ajay         |
+|          4 | Vivek        |
+|          5 | Mihir        |
+|          6 | Haresh       |
+|          7 | Daivat       |
+|          8 | Aman         |
+|          9 | Akshay       |
++------------+--------------+
+9 rows in set (0.00 sec)
+
+MariaDB [batch11am]> select * from address into outfile "C:\\batches\\online_batch\\address.csv"
+    -> ;
+Query OK, 7 rows affected (0.07 sec)
+
+MariaDB [batch11am]> exit()
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'exit()' at line 1
+MariaDB [batch11am]> exit
+Bye
+
+Simran Grover@LAPTOP-JS358S5T c:\xampp
+# mysql -u root -p < "C:\Users\Simran Grover\Desktop\DATASETS\World\world-schema.sql"
+Enter password:
+
+Simran Grover@LAPTOP-JS358S5T c:\xampp
+# mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 4
+Server version: 10.1.21-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2016, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| advancebatch       |
+| api_project        |
+| assign             |
+| bank_app           |
+| batch1             |
+| batch1030am        |
+| batch11am          |
+| batch1pm           |
+| batch4pm           |
+| batch5pm           |
+| batch630           |
+| batch7_15          |
+| batch7pm           |
+| batch9am           |
+| blog               |
+| blogweb            |
+| db_grampower       |
+| grras_training     |
+| information_schema |
+| internbatch2       |
+| internbatch8am     |
+| internproject      |
+| internship_batch   |
+| joboriented        |
+| myprojectcgi       |
+| mysql              |
+| online_batch       |
+| performance_schema |
+| phpmyadmin         |
+| project            |
+| project1           |
+| project1130        |
+| project2           |
+| signup             |
+| student            |
+| student1           |
+| techinal_youth     |
+| test               |
+| userdata           |
+| world              |
++--------------------+
+40 rows in set (0.01 sec)
+
+MariaDB [(none)]> use world;
+Database changed
+MariaDB [world]> show tables;
++-----------------+
+| Tables_in_world |
++-----------------+
+| city            |
+| country         |
+| countrylanguage |
++-----------------+
+3 rows in set (0.00 sec)
+
+MariaDB [world]> select count(*) from city;
++----------+
+| count(*) |
++----------+
+|     4079 |
++----------+
+1 row in set (0.00 sec)
+
+MariaDB [world]> select count(*) from country;
++----------+
+| count(*) |
++----------+
+|      239 |
++----------+
+1 row in set (0.00 sec)
+
+MariaDB [world]> select count(*) from countrylanguage;
++----------+
+| count(*) |
++----------+
+|      984 |
++----------+
+1 row in set (0.00 sec)
+
+MariaDB [world]> select * from city limit 10;
++----+----------------+-------------+---------------+------------+
+| ID | Name           | CountryCode | District      | Population |
++----+----------------+-------------+---------------+------------+
+|  1 | Kabul          | AFG         | Kabol         |    1780000 |
+|  2 | Qandahar       | AFG         | Qandahar      |     237500 |
+|  3 | Herat          | AFG         | Herat         |     186800 |
+|  4 | Mazar-e-Sharif | AFG         | Balkh         |     127800 |
+|  5 | Amsterdam      | NLD         | Noord-Holland |     731200 |
+|  6 | Rotterdam      | NLD         | Zuid-Holland  |     593321 |
+|  7 | Haag           | NLD         | Zuid-Holland  |     440900 |
+|  8 | Utrecht        | NLD         | Utrecht       |     234323 |
+|  9 | Eindhoven      | NLD         | Noord-Brabant |     201843 |
+| 10 | Tilburg        | NLD         | Noord-Brabant |     193238 |
++----+----------------+-------------+---------------+------------+
+10 rows in set (0.00 sec)
+
+MariaDB [world]> select * from country limit 10;
++------+----------------------+---------------+---------------------------+-------------+-----------+------------+----------------+-----------+-----------+------------------------------------+----------------------------------------------+-----------------------------+---------+-------+
+| Code | Name                 | Continent     | Region                    | SurfaceArea | IndepYear | Population | LifeExpectancy | GNP       | GNPOld    | LocalName                          | GovernmentForm                               | HeadOfState                 | Capital | Code2 |
++------+----------------------+---------------+---------------------------+-------------+-----------+------------+----------------+-----------+-----------+------------------------------------+----------------------------------------------+-----------------------------+---------+-------+
+| ABW  | Aruba                | North America | Caribbean                 |      193.00 |      NULL |     103000 |           78.4 |    828.00 |    793.00 | Aruba                              | Nonmetropolitan Territory of The Netherlands | Beatrix                     |     129 | AW    |
+| AFG  | Afghanistan          | Asia          | Southern and Central Asia |   652090.00 |      1919 |   22720000 |           45.9 |   5976.00 |      NULL | Afganistan/Afqanestan              | Islamic Emirate                              | Mohammad Omar               |       1 | AF    |
+| AGO  | Angola               | Africa        | Central Africa            |  1246700.00 |      1975 |   12878000 |           38.3 |   6648.00 |   7984.00 | Angola                             | Republic                                     | José Eduardo dos Santos     |      56 | AO    |
+| AIA  | Anguilla             | North America | Caribbean                 |       96.00 |      NULL |       8000 |           76.1 |     63.20 |      NULL | Anguilla                           | Dependent Territory of the UK                | Elisabeth II                |      62 | AI    |
+| ALB  | Albania              | Europe        | Southern Europe           |    28748.00 |      1912 |    3401200 |           71.6 |   3205.00 |   2500.00 | Shqipëria                          | Republic                                     | Rexhep Mejdani              |      34 | AL    |
+| AND  | Andorra              | Europe        | Southern Europe           |      468.00 |      1278 |      78000 |           83.5 |   1630.00 |      NULL | Andorra                            | Parliamentary Coprincipality                 |                             |      55 | AD    |
+| ANT  | Netherlands Antilles | North America | Caribbean                 |      800.00 |      NULL |     217000 |           74.7 |   1941.00 |      NULL | Nederlandse Antillen               | Nonmetropolitan Territory of The Netherlands | Beatrix                     |      33 | AN    |
+| ARE  | United Arab Emirates | Asia          | Middle East               |    83600.00 |      1971 |    2441000 |           74.1 |  37966.00 |  36846.00 | Al-Imarat al-∩Arabiya al-Muttahida | Emirate Federation                           | Zayid bin Sultan al-Nahayan |      65 | AE    |
+| ARG  | Argentina            | South America | South America             |  2780400.00 |      1816 |   37032000 |           75.1 | 340238.00 | 323310.00 | Argentina                          | Federal Republic                             | Fernando de la Rúa          |      69 | AR    |
+| ARM  | Armenia              | Asia          | Middle East               |    29800.00 |      1991 |    3520000 |           66.4 |   1813.00 |   1627.00 | Hajastan                           | Republic                                     | Robert Kot?arjan            |     126 | AM    |
++------+----------------------+---------------+---------------------------+-------------+-----------+------------+----------------+-----------+-----------+------------------------------------+----------------------------------------------+-----------------------------+---------+-------+
+10 rows in set (0.00 sec)
+
+MariaDB [world]> select * from countrylanguage limit 10;
++-------------+------------+------------+------------+
+| CountryCode | Language   | IsOfficial | Percentage |
++-------------+------------+------------+------------+
+| ABW         | Dutch      | T          |        5.3 |
+| ABW         | English    | F          |        9.5 |
+| ABW         | Papiamento | F          |       76.7 |
+| ABW         | Spanish    | F          |        7.4 |
+| AFG         | Balochi    | F          |        0.9 |
+| AFG         | Dari       | T          |       32.1 |
+| AFG         | Pashto     | T          |       52.4 |
+| AFG         | Turkmenian | F          |        1.9 |
+| AFG         | Uzbek      | F          |        8.8 |
+| AGO         | Ambo       | F          |        2.4 |
++-------------+------------+------------+------------+
+10 rows in set (0.00 sec)
+
+MariaDB [world]>

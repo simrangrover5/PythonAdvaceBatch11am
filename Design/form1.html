@@ -1,0 +1,40 @@
+<html>
+    <head>
+        <style>
+            label{
+                color:indianred;
+                font-size: 30px;
+                font-family: cursive;
+                font-style: italic;
+            }
+            body{
+                background: darkgrey;
+            }
+            input{
+                height: 4.5%;
+                width: 15%;
+                border-radius: 10px;
+                border: 2px solid red;
+            }
+            #sub{
+                background-color: black;
+                color: white;
+                font-size: 20px;
+                border-radius: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <form method="GET" action="#">
+            <label>Full Name</label><br>
+            <input type="text" name="fname"><br>
+            <label>Email</label><br>
+            <input type="email" name="email"><br>
+            <label>Password</label><br>
+            <input type="password" name="passwd"><br>
+            <label>Gender</label><br>
+            <input type="radio" name="gender" value="male"><label>Male</label><input type="radio" name="gender" value="female"><label>Female</label><br>
+            <input type="submit" id="sub">
+        </form>
+    </body>
+</html>

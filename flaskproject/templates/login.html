@@ -1,0 +1,42 @@
+<html>
+    <head>
+        <style>
+            label{
+                color: white;
+                font-size: 20px;
+                font-family: 'Times New Roman', Times, serif;
+            }
+            form{
+                margin-top: 15%;
+            }
+            input{
+                height: 5%;
+                width: 30%;
+                border-radius: 5px;
+                background-color: #00000066;
+                outline: none;
+                border: 2px solid black;
+                color: white;
+            }
+            #log{
+                background-color: indianred;
+            }
+        </style>
+    </head>
+    <body>
+        {% include "nav.html" %}
+        {% block head %}
+        {% endblock %}
+        <center>
+        <form method="POST" action="/afterlogin/">
+            <h3 style="color: indianred;">{{msg}}</h3>
+            <label>Enter your Email</label><br>
+            <input type="email" name="email"><br><br>
+            <label>Enter your Password</label><br>
+            <input type="password" name="passwd"><br><br>
+            <input type="submit" value="LOGIN" id="log">
+        </form>
+        <a href="/fblogin/">Continue With Facebook</a>
+        </center>
+    </body>
+</html>

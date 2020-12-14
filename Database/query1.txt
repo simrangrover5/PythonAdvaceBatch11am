@@ -1,0 +1,474 @@
+
+Setting environment for using XAMPP for Windows.
+Simran Grover@LAPTOP-JS358S5T c:\xampp
+# mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 2
+Server version: 10.1.21-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2016, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> select * from batch11am.student;
+ERROR 1146 (42S02): Table 'batch11am.student' doesn't exist
+MariaDB [(none)]> use batch11am;
+Database changed
+MariaDB [batch11am]> show tables;
++---------------------+
+| Tables_in_batch11am |
++---------------------+
+| temp                |
++---------------------+
+1 row in set (0.05 sec)
+
+MariaDB [batch11am]> exit
+Bye
+
+Simran Grover@LAPTOP-JS358S5T c:\xampp
+# mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 4
+Server version: 10.1.21-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2016, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> select * from batch11am.temp;
++------+--------+--------+
+| id   | name   | city   |
++------+--------+--------+
+|    1 | simran | jaipur |
+|    1 | simran | jaipur |
+|    2 | sahil  | delhi  |
++------+--------+--------+
+3 rows in set (1.31 sec)
+
+MariaDB [(none)]> insert into batch11am.temp values(3, "raghav", "jaipur");
+Query OK, 1 row affected (1.45 sec)
+
+MariaDB [(none)]> select * from batch11am.temp;
++------+--------+--------+
+| id   | name   | city   |
++------+--------+--------+
+|    1 | simran | jaipur |
+|    1 | simran | jaipur |
+|    2 | sahil  | delhi  |
+|    3 | raghav | jaipur |
++------+--------+--------+
+4 rows in set (0.00 sec)
+
+MariaDB [(none)]> use batch11am;
+Database changed
+MariaDB [batch11am]> show tables;
++---------------------+
+| Tables_in_batch11am |
++---------------------+
+| temp                |
++---------------------+
+1 row in set (0.00 sec)
+
+MariaDB [batch11am]> drop table temp;
+Query OK, 0 rows affected (0.20 sec)
+
+MariaDB [batch11am]> show tables;
+Empty set (0.00 sec)
+
+MariaDB [batch11am]> create table student(id int(5) primary key, fname varchar(100), lname varchar(100), age int, subject varchar(100));
+Query OK, 0 rows affected (0.28 sec)
+
+MariaDB [batch11am]> show tables;
++---------------------+
+| Tables_in_batch11am |
++---------------------+
+| student             |
++---------------------+
+1 row in set (0.00 sec)
+
+MariaDB [batch11am]> desc student;
++---------+--------------+------+-----+---------+-------+
+| Field   | Type         | Null | Key | Default | Extra |
++---------+--------------+------+-----+---------+-------+
+| id      | int(5)       | NO   | PRI | NULL    |       |
+| fname   | varchar(100) | YES  |     | NULL    |       |
+| lname   | varchar(100) | YES  |     | NULL    |       |
+| age     | int(11)      | YES  |     | NULL    |       |
+| subject | varchar(100) | YES  |     | NULL    |       |
++---------+--------------+------+-----+---------+-------+
+5 rows in set (0.05 sec)
+
+MariaDB [batch11am]> drop table student;
+Query OK, 0 rows affected (0.07 sec)
+
+MariaDB [batch11am]> create table student(id int(5) primary key auto_increment, fname varchar(100), lname varchar(100), age int, subject varchar(100));
+Query OK, 0 rows affected (0.19 sec)
+
+MariaDB [batch11am]> desc student;
++---------+--------------+------+-----+---------+----------------+
+| Field   | Type         | Null | Key | Default | Extra          |
++---------+--------------+------+-----+---------+----------------+
+| id      | int(5)       | NO   | PRI | NULL    | auto_increment |
+| fname   | varchar(100) | YES  |     | NULL    |                |
+| lname   | varchar(100) | YES  |     | NULL    |                |
+| age     | int(11)      | YES  |     | NULL    |                |
+| subject | varchar(100) | YES  |     | NULL    |                |
++---------+--------------+------+-----+---------+----------------+
+5 rows in set (0.02 sec)
+
+MariaDB [batch11am]> alter table student modify column fname varchar(100) not null;
+Query OK, 0 rows affected (0.36 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [batch11am]> alter table student modify column lname varchar(100) not null;
+Query OK, 0 rows affected (0.22 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [batch11am]> desc student;
++---------+--------------+------+-----+---------+----------------+
+| Field   | Type         | Null | Key | Default | Extra          |
++---------+--------------+------+-----+---------+----------------+
+| id      | int(5)       | NO   | PRI | NULL    | auto_increment |
+| fname   | varchar(100) | NO   |     | NULL    |                |
+| lname   | varchar(100) | NO   |     | NULL    |                |
+| age     | int(11)      | YES  |     | NULL    |                |
+| subject | varchar(100) | YES  |     | NULL    |                |
++---------+--------------+------+-----+---------+----------------+
+5 rows in set (0.03 sec)
+
+MariaDB [batch11am]> insert into student values(1, "simran", "grover", 20, "pcm");
+Query OK, 1 row affected (0.02 sec)
+
+MariaDB [batch11am]> insert into student values(1, "simran", "grover", 20, "pcm");
+ERROR 1062 (23000): Duplicate entry '1' for key 'PRIMARY'
+MariaDB [batch11am]> insert into student values(2, "Sahil", "Grover", 22, "Commerce");
+Query OK, 1 row affected (0.03 sec)
+
+MariaDB [batch11am]> select * from student;
++----+--------+--------+------+----------+
+| id | fname  | lname  | age  | subject  |
++----+--------+--------+------+----------+
+|  1 | simran | grover |   20 | pcm      |
+|  2 | Sahil  | Grover |   22 | Commerce |
++----+--------+--------+------+----------+
+2 rows in set (0.00 sec)
+
+MariaDB [batch11am]> insert into student values(3, "Ajay", "Gupta", 22, "PCM"), (4, "Vivek", "Uniyal", 21, "PCB");
+Query OK, 2 rows affected (0.17 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+MariaDB [batch11am]> select * from student;
++----+--------+--------+------+----------+
+| id | fname  | lname  | age  | subject  |
++----+--------+--------+------+----------+
+|  1 | simran | grover |   20 | pcm      |
+|  2 | Sahil  | Grover |   22 | Commerce |
+|  3 | Ajay   | Gupta  |   22 | PCM      |
+|  4 | Vivek  | Uniyal |   21 | PCB      |
++----+--------+--------+------+----------+
+4 rows in set (0.00 sec)
+
+MariaDB [batch11am]> insert into student values("Mihir" ,"Mehta", 23, "PCM");
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+MariaDB [batch11am]> insert into student(fname, lname, age, subject) values("Mihir" ,"Mehta", 23, "PCM");
+Query OK, 1 row affected (0.41 sec)
+
+MariaDB [batch11am]> insert into student(fname, lname, age, subject) values("Haresh" ,"Parmar", 23, "PCB");
+Query OK, 1 row affected (0.03 sec)
+
+MariaDB [batch11am]> insert into student(fname, lname, age, subject) values("Daivat" ,"Shah", 19, "Python");
+Query OK, 1 row affected (0.02 sec)
+
+MariaDB [batch11am]> select * from student'
+    '> ;
+    '> ';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''
+;
+'' at line 1
+MariaDB [batch11am]> select * from student;
++----+--------+--------+------+----------+
+| id | fname  | lname  | age  | subject  |
++----+--------+--------+------+----------+
+|  1 | simran | grover |   20 | pcm      |
+|  2 | Sahil  | Grover |   22 | Commerce |
+|  3 | Ajay   | Gupta  |   22 | PCM      |
+|  4 | Vivek  | Uniyal |   21 | PCB      |
+|  5 | Mihir  | Mehta  |   23 | PCM      |
+|  6 | Haresh | Parmar |   23 | PCB      |
+|  7 | Daivat | Shah   |   19 | Python   |
++----+--------+--------+------+----------+
+7 rows in set (0.00 sec)
+
+MariaDB [batch11am]> update student set subject="Cloud" where id=1;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [batch11am]> update student set subject="AWS" where id=1 or id=4;
+Query OK, 2 rows affected (0.01 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+MariaDB [batch11am]> select * from student;
++----+--------+--------+------+----------+
+| id | fname  | lname  | age  | subject  |
++----+--------+--------+------+----------+
+|  1 | simran | grover |   20 | AWS      |
+|  2 | Sahil  | Grover |   22 | Commerce |
+|  3 | Ajay   | Gupta  |   22 | PCM      |
+|  4 | Vivek  | Uniyal |   21 | AWS      |
+|  5 | Mihir  | Mehta  |   23 | PCM      |
+|  6 | Haresh | Parmar |   23 | PCB      |
+|  7 | Daivat | Shah   |   19 | Python   |
++----+--------+--------+------+----------+
+7 rows in set (0.00 sec)
+
+MariaDB [batch11am]> update student set subject="Cloud" where id=5 or id=3;
+Query OK, 2 rows affected (0.00 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+MariaDB [batch11am]> update student set subject="Python" where id=6;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [batch11am]> select * from student;
++----+--------+--------+------+----------+
+| id | fname  | lname  | age  | subject  |
++----+--------+--------+------+----------+
+|  1 | simran | grover |   20 | AWS      |
+|  2 | Sahil  | Grover |   22 | Commerce |
+|  3 | Ajay   | Gupta  |   22 | Cloud    |
+|  4 | Vivek  | Uniyal |   21 | AWS      |
+|  5 | Mihir  | Mehta  |   23 | Cloud    |
+|  6 | Haresh | Parmar |   23 | Python   |
+|  7 | Daivat | Shah   |   19 | Python   |
++----+--------+--------+------+----------+
+7 rows in set (0.00 sec)
+
+MariaDB [batch11am]> update student set subject="Python" where id=2;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [batch11am]> select * from student;
++----+--------+--------+------+---------+
+| id | fname  | lname  | age  | subject |
++----+--------+--------+------+---------+
+|  1 | simran | grover |   20 | AWS     |
+|  2 | Sahil  | Grover |   22 | Python  |
+|  3 | Ajay   | Gupta  |   22 | Cloud   |
+|  4 | Vivek  | Uniyal |   21 | AWS     |
+|  5 | Mihir  | Mehta  |   23 | Cloud   |
+|  6 | Haresh | Parmar |   23 | Python  |
+|  7 | Daivat | Shah   |   19 | Python  |
++----+--------+--------+------+---------+
+7 rows in set (0.00 sec)
+
+MariaDB [batch11am]> select * from student where age=20;
++----+--------+--------+------+---------+
+| id | fname  | lname  | age  | subject |
++----+--------+--------+------+---------+
+|  1 | simran | grover |   20 | AWS     |
++----+--------+--------+------+---------+
+1 row in set (0.00 sec)
+
+MariaDB [batch11am]> select * from student where age>20;
++----+--------+--------+------+---------+
+| id | fname  | lname  | age  | subject |
++----+--------+--------+------+---------+
+|  2 | Sahil  | Grover |   22 | Python  |
+|  3 | Ajay   | Gupta  |   22 | Cloud   |
+|  4 | Vivek  | Uniyal |   21 | AWS     |
+|  5 | Mihir  | Mehta  |   23 | Cloud   |
+|  6 | Haresh | Parmar |   23 | Python  |
++----+--------+--------+------+---------+
+5 rows in set (0.00 sec)
+
+MariaDB [batch11am]> select fname from student where age>20;
++--------+
+| fname  |
++--------+
+| Sahil  |
+| Ajay   |
+| Vivek  |
+| Mihir  |
+| Haresh |
++--------+
+5 rows in set (0.00 sec)
+
+MariaDB [batch11am]> select fname,lname from student where age>20;
++--------+--------+
+| fname  | lname  |
++--------+--------+
+| Sahil  | Grover |
+| Ajay   | Gupta  |
+| Vivek  | Uniyal |
+| Mihir  | Mehta  |
+| Haresh | Parmar |
++--------+--------+
+5 rows in set (0.00 sec)
+
+MariaDB [batch11am]> select fname,lname from student where age>=20;
++--------+--------+
+| fname  | lname  |
++--------+--------+
+| simran | grover |
+| Sahil  | Grover |
+| Ajay   | Gupta  |
+| Vivek  | Uniyal |
+| Mihir  | Mehta  |
+| Haresh | Parmar |
++--------+--------+
+6 rows in set (0.00 sec)
+
+MariaDB [batch11am]> select fname,lname from student where subject="python";
++--------+--------+
+| fname  | lname  |
++--------+--------+
+| Sahil  | Grover |
+| Haresh | Parmar |
+| Daivat | Shah   |
++--------+--------+
+3 rows in set (0.00 sec)
+
+MariaDB [batch11am]> select * from student where subject="cloud" or subject="aws";
++----+--------+--------+------+---------+
+| id | fname  | lname  | age  | subject |
++----+--------+--------+------+---------+
+|  1 | simran | grover |   20 | AWS     |
+|  3 | Ajay   | Gupta  |   22 | Cloud   |
+|  4 | Vivek  | Uniyal |   21 | AWS     |
+|  5 | Mihir  | Mehta  |   23 | Cloud   |
++----+--------+--------+------+---------+
+4 rows in set (0.00 sec)
+
+MariaDB [batch11am]> select * from student where age>=20 and subject="aws";
++----+--------+--------+------+---------+
+| id | fname  | lname  | age  | subject |
++----+--------+--------+------+---------+
+|  1 | simran | grover |   20 | AWS     |
+|  4 | Vivek  | Uniyal |   21 | AWS     |
++----+--------+--------+------+---------+
+2 rows in set (0.02 sec)
+
+MariaDB [batch11am]> select * from student where subject="python" or fname="simran";
++----+--------+--------+------+---------+
+| id | fname  | lname  | age  | subject |
++----+--------+--------+------+---------+
+|  1 | simran | grover |   20 | AWS     |
+|  2 | Sahil  | Grover |   22 | Python  |
+|  6 | Haresh | Parmar |   23 | Python  |
+|  7 | Daivat | Shah   |   19 | Python  |
++----+--------+--------+------+---------+
+4 rows in set (0.00 sec)
+
+MariaDB [batch11am]> select * from student where subject="python" or subject="aws";
++----+--------+--------+------+---------+
+| id | fname  | lname  | age  | subject |
++----+--------+--------+------+---------+
+|  1 | simran | grover |   20 | AWS     |
+|  2 | Sahil  | Grover |   22 | Python  |
+|  4 | Vivek  | Uniyal |   21 | AWS     |
+|  6 | Haresh | Parmar |   23 | Python  |
+|  7 | Daivat | Shah   |   19 | Python  |
++----+--------+--------+------+---------+
+5 rows in set (0.00 sec)
+
+MariaDB [batch11am]> insert into student values(8, "Aman", "Gupta", 22, "Linux")
+    -> ;
+Query OK, 1 row affected (0.01 sec)
+
+MariaDB [batch11am]> select * from student where subject="python" or subject="aws" or subject="linux";
++----+--------+--------+------+---------+
+| id | fname  | lname  | age  | subject |
++----+--------+--------+------+---------+
+|  1 | simran | grover |   20 | AWS     |
+|  2 | Sahil  | Grover |   22 | Python  |
+|  4 | Vivek  | Uniyal |   21 | AWS     |
+|  6 | Haresh | Parmar |   23 | Python  |
+|  7 | Daivat | Shah   |   19 | Python  |
+|  8 | Aman   | Gupta  |   22 | Linux   |
++----+--------+--------+------+---------+
+6 rows in set (0.00 sec)
+
+MariaDB [batch11am]> select * from student where not subject="cloud";
++----+--------+--------+------+---------+
+| id | fname  | lname  | age  | subject |
++----+--------+--------+------+---------+
+|  1 | simran | grover |   20 | AWS     |
+|  2 | Sahil  | Grover |   22 | Python  |
+|  4 | Vivek  | Uniyal |   21 | AWS     |
+|  6 | Haresh | Parmar |   23 | Python  |
+|  7 | Daivat | Shah   |   19 | Python  |
+|  8 | Aman   | Gupta  |   22 | Linux   |
++----+--------+--------+------+---------+
+6 rows in set (0.00 sec)
+
+MariaDB [batch11am]> select max(age) from student'
+    '> ';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''
+'' at line 1
+MariaDB [batch11am]> select max(age) from student;
++----------+
+| max(age) |
++----------+
+|       23 |
++----------+
+1 row in set (0.00 sec)
+
+MariaDB [batch11am]> select min(age) from student;
++----------+
+| min(age) |
++----------+
+|       19 |
++----------+
+1 row in set (0.00 sec)
+
+MariaDB [batch11am]> select avg(age) from student;
++----------+
+| avg(age) |
++----------+
+|  21.5000 |
++----------+
+1 row in set (0.01 sec)
+
+MariaDB [batch11am]> select sum(age) from student;
++----------+
+| sum(age) |
++----------+
+|      172 |
++----------+
+1 row in set (0.00 sec)
+
+MariaDB [batch11am]> select count(age) from student;
++------------+
+| count(age) |
++------------+
+|          8 |
++------------+
+1 row in set (0.00 sec)
+
+MariaDB [batch11am]> select count(*) from student;
++----------+
+| count(*) |
++----------+
+|        8 |
++----------+
+1 row in set (0.00 sec)
+
+MariaDB [batch11am]> select count(*) from student where subject="python";
++----------+
+| count(*) |
++----------+
+|        3 |
++----------+
+1 row in set (0.00 sec)
+
+MariaDB [batch11am]> select count(*) from student where subject="cloud";
++----------+
+| count(*) |
++----------+
+|        2 |
++----------+
+1 row in set (0.00 sec)
+
+MariaDB [batch11am]>

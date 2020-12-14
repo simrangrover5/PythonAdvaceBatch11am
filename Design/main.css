@@ -1,0 +1,16 @@
+li{
+    display: inline;
+    padding: 50px;
+}
+a{
+    color: whitesmoke;
+    font-size: 30px;
+    text-decoration: none;
+}
+body{
+    background-image: url("bg.jpg");
+    background-position: top;
+}
+a:hover{
+    color: gray;
+}

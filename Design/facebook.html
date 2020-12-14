@@ -1,0 +1,113 @@
+<html>
+    <head>
+        <style>
+            *{
+                padding: 0;
+                margin: 0;
+            }
+            .div1{
+                background-color: #2f55a4;
+                height: 12%;
+            }
+            #h1{
+                color: white;
+                font-weight: bold;
+                font-family: Tahoma;
+                padding-left: 12%;
+                padding-top: 1.5%;
+                font-size: 40px;
+            }
+            .div2{
+                margin-left: 60%;
+                margin-top: -4%;
+            }
+            .label{
+                color: #FBFCFC;
+                font-size: 15px;
+            }
+            td{
+                padding-left: 20px;
+            }
+            #a1{
+                color: #FBFCFC;
+                font-size: 15px;
+                text-decoration: none;
+            }
+            #log{
+                color: white;
+                background-color: #4e71ba;
+                border: 1px solid #4e71ba;
+                padding: 2px;
+                font-size: 12px;
+            }
+            .in2{
+                padding: 5px;
+                border-radius: 5px;
+                outline: none;
+                border: 2px solid #AAB7B8;
+                margin-top: 2%;
+                height: 5%;
+            }
+            .in3{
+                width: 55.9%;
+            }
+            #sub{
+                background-color: #229954;
+                height: 6%;
+                width: 30%;
+                font-weight: bold;
+                font-size: 20px;
+                padding: 5px;
+                margin-top : 2%;
+                border-radius: 5px;
+                border: 2px solid #229954;
+                outline: none;
+            }
+            .div3{
+                margin-left: 60%;
+                margin-top: 2%;
+            }
+            ::placeholder{
+                font-size: 15px;
+                color: gray;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="div1">
+            <h1 id="h1">facebook</h1>
+            <div class="div2">
+                <form method="POST" action="#">
+                    <table>
+                        <tr>
+                            <td class="label">Email or phone</td>
+                            <td class="label">Password</td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" name="data"></td>
+                            <td><input type="password" name="passwd"></td>
+                            <td><input type="submit" value="Log In" id="log"></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><a href="#" id="a1">Forgotten account?</a></td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+        <div>
+            <div class="div3">
+                <h1> Create an account</h1>
+                <p style="margin: 1%;font-size: 20px;">It's free and always will be.</p>
+                <form>
+                    <input type="text" placeholder="First name" class="in2">
+                    <input type="text" placeholder="Surname" class="in2"><br>
+                    <input type="text" placeholder="Mobile number or email address" class="in2 in3"><br>
+                    <input type="password" placeholder="New password" class="in2 in3"><br>
+                    <input type="submit" value="Sign Up" id="sub">
+                </form>
+            </div>
+        </div>
+    </body>
+</html>

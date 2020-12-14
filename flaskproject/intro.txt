@@ -1,0 +1,51 @@
+WSGI --> Web Server Gateway Interface
+Interface between your webserver and web application
+Flask WSGI --> >Werkzeug
+
+
+Variable Path
+localhost/home/simran --> Welcome to my home Simran
+localhost/home/ajay --> Welcome to my home ajay
+localhost/home/aman --> Welcome to my home aman
+<var> --> var is Variable
+<name> --> name is variable 
+by default the type of variable is string
+<int:age> --> integer age
+<float:num> --> float num
+
+
+Static_folder --> css, js, images, bs
+templates --> html files
+
+Jinja --> Templating Engine of Python
+Return Dynamic Web Pages
+We can changes pages at run time by using python on html pages
+It works in key value pair
+name="simran" --> name - key and simran - value
+html --> {{key_name}} = {{name}}
+
+If-else Syntax:
+    {% if condition %}
+        {{ name }}
+    {% endif %}
+
+    {% if condition %}
+        statements
+    {% else %}
+        statements
+    {% endif %}
+
+    {% if condition %}
+        statements
+    {% elif condition %}
+        statements
+    {% elif condition %}
+        statements
+    {% else %}
+        statements
+
+for-Loop Syntax
+
+    {% for i in range(10) %}
+        statements
+    {% endfor %}

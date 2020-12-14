@@ -1,0 +1,39 @@
+<html>
+    <head>
+        <style>
+            label{
+                color: white;
+                font-size: 20px;
+                font-family: 'Times New Roman', Times, serif;
+            }
+            .in1, #log{
+                height: 5%;
+                width: 30%;
+                border-radius: 5px;
+                background-color: #00000066;
+                outline: none;
+                border: 2px solid black;
+                color: white;
+            }
+            #log{
+                background-color: indianred;
+            }
+            h1{
+                color: blanchedalmond;
+            }
+        </style>
+    </head>
+    <body>
+        {% include "afterlogin.html" %}
+        {% block head %}
+        {% endblock %}
+        <center>>
+        <form method="POST" action="/searchplace/">
+            <h3 style="color: cadetblue;">{{ msg }}</h3>
+            <label>Enter Any Place</label><br>
+            <input type="text" name="place" class="in1"><br><br>
+            <input type="submit" value="SUBMIT" id="log">
+        </form>
+        </center>
+    </body>
+</html>

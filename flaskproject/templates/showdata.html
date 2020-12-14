@@ -1,0 +1,47 @@
+<html>
+    <head>
+        <style>
+           label{
+               color: cornsilk;
+               font-size: 20px;
+           }
+           h3, h4{
+               color: coral;
+           }
+           h1{
+               color: #123456;
+           }
+        </style>
+    </head>
+    <body>
+        {% include "afterlogin.html" %}
+        {% block head %}
+        {% endblock %}
+        <center>
+        <h1>Details</h1>
+        {% for key, value in data.items() %}
+            <label>{{ key }} = {{ value }}</label><hr>
+        {% endfor %}
+        {% if open %}
+            {% for key,value in open.items() %}
+                {% if key != "periods" %}
+                    <label>{{ key}} = {{ value }}</label><hr>
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            <label>Opening Hours : None</label>
+        {% endif %}
+        {% if reviews %}
+        <h1>Reviews</h1>
+        {% for i in reviews %}
+            <h3>{{ i.author_name }}</h3>
+            <p style="color: cornflowerblue;">{{ i.text }}</p>
+            <h4>Rating : {{ i.rating }}</h4><hr>
+        {% endfor %}
+        {% endif %}
+        </center>
+        {% for i in photo_ref %}
+        <img src=https://maps.googleapis.com/maps/api/place/photo?key={{key}}&photoreference={{i}}&maxheight=400>
+        {% endfor %}
+    </body>
+</html>

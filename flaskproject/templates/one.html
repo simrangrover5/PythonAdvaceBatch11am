@@ -1,0 +1,25 @@
+<html>
+    <head>
+        <style>
+            h1{
+                color: white;
+            }
+            body{
+                background-color: black;
+            }
+            h2{
+                color: red;
+                font-style: italic;
+            }
+        </style>
+    </head>
+    <body>
+        <center><h1>FLASK PROJECT</h1></center>
+        <h1>Welcome To My Project {{naam}}</h1>
+        {% if data1 %}
+        {% for key, value in data1.items() %}
+        <h2>{{ key }} = {{ value }}</h2>
+        {% endfor %}
+        {% endif %}
+    </body>
+</html>

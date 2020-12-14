@@ -1,0 +1,44 @@
+CSS --> Cascade Style Sheet
+It provides us the properties which you can apply on your html pages to make it more attractive
+
+We can implement CSS in three ways
+1. Inline
+    <h1 style="property1:value1;property2:value2;">This is very nice</h1>
+    <h1 style='color : red'>This is CSS</h1>
+    <h1 style='color : red; fontsize : 40px'>This is H1 Tag</h1>
+2. Internal
+    It is applied in head Tag
+    <head>
+        <style>
+            tag_name1, tag_name2, tag_name3....{
+                property1 : value;
+                property2 : value;
+            }
+            .main{
+                color : red;
+                font-family : monospace;
+            }
+            li, .main{
+                backgroundcolor : white;
+            }
+            #p1{
+                font-style : "italic";
+            }
+    <body>
+        <h1 class="main"> This is heading 1 </h1>
+        <p class="main"> This is paragraph tag </p>
+        <li> List1 </li>
+        <p id="p1"> Python is awesome </p>
+    <body>
+    tag_name {
+        p1 : v1;
+    }
+    .class_name{
+        p1 : v1;
+    }
+    #id_name{
+        p1 : v1;
+    }
+3. External
+
+difference between px and %???

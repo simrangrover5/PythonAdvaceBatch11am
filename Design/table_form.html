@@ -1,0 +1,64 @@
+<html>
+    <head>
+        <style>
+            td{
+                font-size: 30px;
+                font-weight: bold;
+                font-family: monospace;
+            }
+            input{
+                background : none;
+                color : white;
+                border: none;
+                outline: none;
+                padding: 5px;
+                border-bottom: 2px solid black;
+            }
+            #sub{
+                background-color: grey;
+                font-size: 25px;
+                font-style: italic;
+                border-radius: 10px;
+                padding: 10px;
+            }
+            ::placeholder{
+                color: whitesmoke
+            }
+            div{
+                margin-top: 10%;
+                height: 50%;
+                width: 50%;
+                background-color: rgba(0, 0, 0, 0.4);
+            }
+            form{
+                padding-top: 10%;
+            }
+        </style>
+    </head>
+    <body style="background: linear-gradient( #123456, #C0A58B );">
+        <center>
+        <div>
+        <form action="#">
+            <table>
+                <tr>
+                    <td>Full Name : </td>
+                    <td><input type="text" name="fname" placeholder="FULL NAME"></td>
+                </tr>
+                <tr>
+                    <td>Email : </td>
+                    <td><input type="email" name="email" placeholder="EMAIL" required></td>
+                </tr>
+                <tr>
+                    <td>Password : </td>
+                    <td><input type="password" name="passwd" placeholder="PASSWORD"></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input type="submit" value="SUBMIT" id="sub"></td>
+                </tr>
+            </table>
+        </form>
+        </div>
+        </center>
+    </body>
+</html>

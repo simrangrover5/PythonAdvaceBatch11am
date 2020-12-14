@@ -1,0 +1,752 @@
+
+Setting environment for using XAMPP for Windows.
+Simran Grover@LAPTOP-JS358S5T c:\xampp
+# mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 2
+Server version: 10.1.21-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2016, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> use batch11am;
+Database changed
+MariaDB [batch11am]> show tablesl
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'tablesl' at line 1
+MariaDB [batch11am]> show tables;
++---------------------+
+| Tables_in_batch11am |
++---------------------+
+| student             |
++---------------------+
+1 row in set (0.30 sec)
+
+MariaDB [batch11am]> create table address(aid int(5) primary key, sid int(5), street varchar(100), city varchar(100), state varchar(100), foreign key(sid) references student(id));
+Query OK, 0 rows affected (0.20 sec)
+
+MariaDB [batch11am]> desc address;
++--------+--------------+------+-----+---------+-------+
+| Field  | Type         | Null | Key | Default | Extra |
++--------+--------------+------+-----+---------+-------+
+| aid    | int(5)       | NO   | PRI | NULL    |       |
+| sid    | int(5)       | YES  | MUL | NULL    |       |
+| street | varchar(100) | YES  |     | NULL    |       |
+| city   | varchar(100) | YES  |     | NULL    |       |
+| state  | varchar(100) | YES  |     | NULL    |       |
++--------+--------------+------+-----+---------+-------+
+5 rows in set (0.05 sec)
+
+MariaDB [batch11am]> alter table address modify column sid not null;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'not null' at line 1
+MariaDB [batch11am]> alter table address modify column sid int(5) not null;
+ERROR 1832 (HY000): Cannot change column 'sid': used in a foreign key constraint 'address_ibfk_1'
+MariaDB [batch11am]> drop address;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'address' at line 1
+MariaDB [batch11am]> drop table address;
+Query OK, 0 rows affected (1.09 sec)
+
+MariaDB [batch11am]> create table address(aid int(5) primary key, sid int(5) not null, street varchar(100), city varchar(100), state varchar(100), foreign key(sid) references student(id));
+Query OK, 0 rows affected (0.40 sec)
+
+MariaDB [batch11am]> desc address;
++--------+--------------+------+-----+---------+-------+
+| Field  | Type         | Null | Key | Default | Extra |
++--------+--------------+------+-----+---------+-------+
+| aid    | int(5)       | NO   | PRI | NULL    |       |
+| sid    | int(5)       | NO   | MUL | NULL    |       |
+| street | varchar(100) | YES  |     | NULL    |       |
+| city   | varchar(100) | YES  |     | NULL    |       |
+| state  | varchar(100) | YES  |     | NULL    |       |
++--------+--------------+------+-----+---------+-------+
+5 rows in set (0.30 sec)
+
+MariaDB [batch11am]> create table fees(fid int(5) primary key, sid int(5) not null, fees double, discount double, paid double, foreign key(sid) references student(id));
+Query OK, 0 rows affected (1.51 sec)
+
+MariaDB [batch11am]> desc fees;
++----------+--------+------+-----+---------+-------+
+| Field    | Type   | Null | Key | Default | Extra |
++----------+--------+------+-----+---------+-------+
+| fid      | int(5) | NO   | PRI | NULL    |       |
+| sid      | int(5) | NO   | MUL | NULL    |       |
+| fees     | double | YES  |     | NULL    |       |
+| discount | double | YES  |     | NULL    |       |
+| paid     | double | YES  |     | NULL    |       |
++----------+--------+------+-----+---------+-------+
+5 rows in set (0.89 sec)
+
+MariaDB [batch11am]> insert into address values(101, 1, "malviya nagar", "jaipur", "raj"), (102, 2, "vaishali nagar", "jaipur", "raj"), (103, 3, "Jawahar Nagar", "Jaipur", "raj"), (104, "tilak nagar", "delhi", "delhi"), (105, "gandhi nagar", "ahemdabad", "Gujrat");
+ERROR 1136 (21S01): Column count doesn't match value count at row 4
+MariaDB [batch11am]> insert into address values(101, 1, "malviya nagar", "jaipur", "raj"), (102, 2, "vaishali nagar", "jaipur", "raj"), (103, 3, "Jawahar Nagar", "Jaipur", "raj"), (104, 4, "tilak nagar", "delhi", "delhi"), (105, 5, "gandhi nagar", "ahemdabad", "Gujrat");
+Query OK, 5 rows affected (0.68 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+MariaDB [batch11am]> select * from address;
++-----+-----+----------------+-----------+--------+
+| aid | sid | street         | city      | state  |
++-----+-----+----------------+-----------+--------+
+| 101 |   1 | malviya nagar  | jaipur    | raj    |
+| 102 |   2 | vaishali nagar | jaipur    | raj    |
+| 103 |   3 | Jawahar Nagar  | Jaipur    | raj    |
+| 104 |   4 | tilak nagar    | delhi     | delhi  |
+| 105 |   5 | gandhi nagar   | ahemdabad | Gujrat |
++-----+-----+----------------+-----------+--------+
+5 rows in set (0.00 sec)
+
+MariaDB [batch11am]> select * from student;
++----+--------+--------+------+---------+
+| id | fname  | lname  | age  | subject |
++----+--------+--------+------+---------+
+|  1 | simran | grover |   20 | AWS     |
+|  2 | Sahil  | Grover |   22 | Python  |
+|  3 | Ajay   | Gupta  |   22 | Cloud   |
+|  4 | Vivek  | Uniyal |   21 | AWS     |
+|  5 | Mihir  | Mehta  |   23 | Cloud   |
+|  6 | Haresh | Parmar |   23 | Python  |
+|  7 | Daivat | Shah   |   19 | Python  |
+|  8 | Aman   | Gupta  |   22 | Linux   |
++----+--------+--------+------+---------+
+8 rows in set (0.02 sec)
+
+MariaDB [batch11am]> insert into address values(106, 9, "abc", "xyz", "raj")
+    -> ;
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`batch11am`.`address`, CONSTRAINT `address_ibfk_1` FOREIGN KEY (`sid`) REFERENCES `student` (`id`))
+MariaDB [batch11am]> insert into address values(106, 8, "patel nagar", "delhi", "delhi");
+Query OK, 1 row affected (0.07 sec)
+
+MariaDB [batch11am]> select * from student;
++----+--------+--------+------+---------+
+| id | fname  | lname  | age  | subject |
++----+--------+--------+------+---------+
+|  1 | simran | grover |   20 | AWS     |
+|  2 | Sahil  | Grover |   22 | Python  |
+|  3 | Ajay   | Gupta  |   22 | Cloud   |
+|  4 | Vivek  | Uniyal |   21 | AWS     |
+|  5 | Mihir  | Mehta  |   23 | Cloud   |
+|  6 | Haresh | Parmar |   23 | Python  |
+|  7 | Daivat | Shah   |   19 | Python  |
+|  8 | Aman   | Gupta  |   22 | Linux   |
++----+--------+--------+------+---------+
+8 rows in set (0.00 sec)
+
+MariaDB [batch11am]> select * from address;
++-----+-----+----------------+-----------+--------+
+| aid | sid | street         | city      | state  |
++-----+-----+----------------+-----------+--------+
+| 101 |   1 | malviya nagar  | jaipur    | raj    |
+| 102 |   2 | vaishali nagar | jaipur    | raj    |
+| 103 |   3 | Jawahar Nagar  | Jaipur    | raj    |
+| 104 |   4 | tilak nagar    | delhi     | delhi  |
+| 105 |   5 | gandhi nagar   | ahemdabad | Gujrat |
+| 106 |   8 | patel nagar    | delhi     | delhi  |
++-----+-----+----------------+-----------+--------+
+6 rows in set (0.00 sec)
+
+MariaDB [batch11am]> insert into address values(101, 1, 12000, 2000, 5000), (102, 2, "vaishali nagar", "jaipur", "raj"), (103, 3, "Jawahar Nagar", "Jaipur", "raj"), (104, 4, "tilak nagar", "delhi", "delhi"), (105, 5, "gandhi nagar", "ahemdabad", "Gujrat");
+ERROR 1062 (23000): Duplicate entry '101' for key 'PRIMARY'
+MariaDB [batch11am]> insert into fees values(101, 1, 12000, 2000, 5000), (102, 2, 15000, 2500, 7000), (103, 5, 10000, 1500, 5000), (104, 7, 7000, 1000, 3500);
+Query OK, 4 rows affected (1.16 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+MariaDB [batch11am]> select * from fees;
++-----+-----+-------+----------+------+
+| fid | sid | fees  | discount | paid |
++-----+-----+-------+----------+------+
+| 101 |   1 | 12000 |     2000 | 5000 |
+| 102 |   2 | 15000 |     2500 | 7000 |
+| 103 |   5 | 10000 |     1500 | 5000 |
+| 104 |   7 |  7000 |     1000 | 3500 |
++-----+-----+-------+----------+------+
+4 rows in set (0.00 sec)
+
+MariaDB [batch11am]> select * from address;
++-----+-----+----------------+-----------+--------+
+| aid | sid | street         | city      | state  |
++-----+-----+----------------+-----------+--------+
+| 101 |   1 | malviya nagar  | jaipur    | raj    |
+| 102 |   2 | vaishali nagar | jaipur    | raj    |
+| 103 |   3 | Jawahar Nagar  | Jaipur    | raj    |
+| 104 |   4 | tilak nagar    | delhi     | delhi  |
+| 105 |   5 | gandhi nagar   | ahemdabad | Gujrat |
+| 106 |   8 | patel nagar    | delhi     | delhi  |
++-----+-----+----------------+-----------+--------+
+6 rows in set (0.00 sec)
+
+MariaDB [batch11am]> select * from student;
++----+--------+--------+------+---------+
+| id | fname  | lname  | age  | subject |
++----+--------+--------+------+---------+
+|  1 | simran | grover |   20 | AWS     |
+|  2 | Sahil  | Grover |   22 | Python  |
+|  3 | Ajay   | Gupta  |   22 | Cloud   |
+|  4 | Vivek  | Uniyal |   21 | AWS     |
+|  5 | Mihir  | Mehta  |   23 | Cloud   |
+|  6 | Haresh | Parmar |   23 | Python  |
+|  7 | Daivat | Shah   |   19 | Python  |
+|  8 | Aman   | Gupta  |   22 | Linux   |
++----+--------+--------+------+---------+
+8 rows in set (0.00 sec)
+
+MariaDB [batch11am]> select min(fees) from fees;
++-----------+
+| min(fees) |
++-----------+
+|      7000 |
++-----------+
+1 row in set (0.01 sec)
+
+MariaDB [batch11am]> select max(fees) from fees;
++-----------+
+| max(fees) |
++-----------+
+|     15000 |
++-----------+
+1 row in set (0.00 sec)
+
+MariaDB [batch11am]> select avg(discount) from fees;
++---------------+
+| avg(discount) |
++---------------+
+|          1750 |
++---------------+
+1 row in set (0.00 sec)
+
+MariaDB [batch11am]> select * from student where subject in ("python", "aws");
++----+--------+--------+------+---------+
+| id | fname  | lname  | age  | subject |
++----+--------+--------+------+---------+
+|  1 | simran | grover |   20 | AWS     |
+|  2 | Sahil  | Grover |   22 | Python  |
+|  4 | Vivek  | Uniyal |   21 | AWS     |
+|  6 | Haresh | Parmar |   23 | Python  |
+|  7 | Daivat | Shah   |   19 | Python  |
++----+--------+--------+------+---------+
+5 rows in set (0.00 sec)
+
+MariaDB [batch11am]> select * from student where subject not in ("python", "aws")
+    -> ;
++----+-------+-------+------+---------+
+| id | fname | lname | age  | subject |
++----+-------+-------+------+---------+
+|  3 | Ajay  | Gupta |   22 | Cloud   |
+|  5 | Mihir | Mehta |   23 | Cloud   |
+|  8 | Aman  | Gupta |   22 | Linux   |
++----+-------+-------+------+---------+
+3 rows in set (0.00 sec)
+
+MariaDB [batch11am]> select sid from fees where fees= (select min(fees) from fees);
++-----+
+| sid |
++-----+
+|   7 |
++-----+
+1 row in set (0.00 sec)
+
+MariaDB [batch11am]> select fname, lname from student where id=7;
++--------+-------+
+| fname  | lname |
++--------+-------+
+| Daivat | Shah  |
++--------+-------+
+1 row in set (0.00 sec)
+
+MariaDB [batch11am]> select fname, lname from student where id=(select sid from fees where fees=(select min(fees) from fees));
++--------+-------+
+| fname  | lname |
++--------+-------+
+| Daivat | Shah  |
++--------+-------+
+1 row in set (0.00 sec)
+
+MariaDB [batch11am]> select fname, lname from student where id=(select sid from fees where fees>10000);
+ERROR 1242 (21000): Subquery returns more than 1 row
+MariaDB [batch11am]> select fname, lname from student where id in (select sid from fees where fees>10000);
++--------+--------+
+| fname  | lname  |
++--------+--------+
+| simran | grover |
+| Sahil  | Grover |
++--------+--------+
+2 rows in set (0.00 sec)
+
+MariaDB [batch11am]> course of student having fees>10000 and disount>1500;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'course of student having fees>10000 and disount>1500' at line 1
+MariaDB [batch11am]> select subject from student where id (select sid from fees where fees>10000 and discount>1500);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(select sid from fees where fees>10000 and discount>1500)' at line 1
+MariaDB [batch11am]> select subject from student where id in (select sid from fees where fees>10000 and discount>1500);
++---------+
+| subject |
++---------+
+| AWS     |
+| Python  |
++---------+
+2 rows in set (0.00 sec)
+
+MariaDB [batch11am]> select fees from fees where sid in (select sid from address where city="jaipur");
++-------+
+| fees  |
++-------+
+| 12000 |
+| 15000 |
++-------+
+2 rows in set (0.00 sec)
+
+MariaDB [batch11am]> select sid from address where city="jaipur";
++-----+
+| sid |
++-----+
+|   1 |
+|   2 |
+|   3 |
++-----+
+3 rows in set (0.00 sec)
+
+MariaDB [batch11am]> select fees from fees where sid in (1,2,3);
++-------+
+| fees  |
++-------+
+| 12000 |
+| 15000 |
++-------+
+2 rows in set (0.00 sec)
+
+MariaDB [batch11am]> select sid, fees from fees where sid in (1,2,3);
++-----+-------+
+| sid | fees  |
++-----+-------+
+|   1 | 12000 |
+|   2 | 15000 |
++-----+-------+
+2 rows in set (0.00 sec)
+
+MariaDB [batch11am]> select * from student, fees;
++----+--------+--------+------+---------+-----+-----+-------+----------+------+
+| id | fname  | lname  | age  | subject | fid | sid | fees  | discount | paid |
++----+--------+--------+------+---------+-----+-----+-------+----------+------+
+|  1 | simran | grover |   20 | AWS     | 101 |   1 | 12000 |     2000 | 5000 |
+|  1 | simran | grover |   20 | AWS     | 102 |   2 | 15000 |     2500 | 7000 |
+|  1 | simran | grover |   20 | AWS     | 103 |   5 | 10000 |     1500 | 5000 |
+|  1 | simran | grover |   20 | AWS     | 104 |   7 |  7000 |     1000 | 3500 |
+|  2 | Sahil  | Grover |   22 | Python  | 101 |   1 | 12000 |     2000 | 5000 |
+|  2 | Sahil  | Grover |   22 | Python  | 102 |   2 | 15000 |     2500 | 7000 |
+|  2 | Sahil  | Grover |   22 | Python  | 103 |   5 | 10000 |     1500 | 5000 |
+|  2 | Sahil  | Grover |   22 | Python  | 104 |   7 |  7000 |     1000 | 3500 |
+|  3 | Ajay   | Gupta  |   22 | Cloud   | 101 |   1 | 12000 |     2000 | 5000 |
+|  3 | Ajay   | Gupta  |   22 | Cloud   | 102 |   2 | 15000 |     2500 | 7000 |
+|  3 | Ajay   | Gupta  |   22 | Cloud   | 103 |   5 | 10000 |     1500 | 5000 |
+|  3 | Ajay   | Gupta  |   22 | Cloud   | 104 |   7 |  7000 |     1000 | 3500 |
+|  4 | Vivek  | Uniyal |   21 | AWS     | 101 |   1 | 12000 |     2000 | 5000 |
+|  4 | Vivek  | Uniyal |   21 | AWS     | 102 |   2 | 15000 |     2500 | 7000 |
+|  4 | Vivek  | Uniyal |   21 | AWS     | 103 |   5 | 10000 |     1500 | 5000 |
+|  4 | Vivek  | Uniyal |   21 | AWS     | 104 |   7 |  7000 |     1000 | 3500 |
+|  5 | Mihir  | Mehta  |   23 | Cloud   | 101 |   1 | 12000 |     2000 | 5000 |
+|  5 | Mihir  | Mehta  |   23 | Cloud   | 102 |   2 | 15000 |     2500 | 7000 |
+|  5 | Mihir  | Mehta  |   23 | Cloud   | 103 |   5 | 10000 |     1500 | 5000 |
+|  5 | Mihir  | Mehta  |   23 | Cloud   | 104 |   7 |  7000 |     1000 | 3500 |
+|  6 | Haresh | Parmar |   23 | Python  | 101 |   1 | 12000 |     2000 | 5000 |
+|  6 | Haresh | Parmar |   23 | Python  | 102 |   2 | 15000 |     2500 | 7000 |
+|  6 | Haresh | Parmar |   23 | Python  | 103 |   5 | 10000 |     1500 | 5000 |
+|  6 | Haresh | Parmar |   23 | Python  | 104 |   7 |  7000 |     1000 | 3500 |
+|  7 | Daivat | Shah   |   19 | Python  | 101 |   1 | 12000 |     2000 | 5000 |
+|  7 | Daivat | Shah   |   19 | Python  | 102 |   2 | 15000 |     2500 | 7000 |
+|  7 | Daivat | Shah   |   19 | Python  | 103 |   5 | 10000 |     1500 | 5000 |
+|  7 | Daivat | Shah   |   19 | Python  | 104 |   7 |  7000 |     1000 | 3500 |
+|  8 | Aman   | Gupta  |   22 | Linux   | 101 |   1 | 12000 |     2000 | 5000 |
+|  8 | Aman   | Gupta  |   22 | Linux   | 102 |   2 | 15000 |     2500 | 7000 |
+|  8 | Aman   | Gupta  |   22 | Linux   | 103 |   5 | 10000 |     1500 | 5000 |
+|  8 | Aman   | Gupta  |   22 | Linux   | 104 |   7 |  7000 |     1000 | 3500 |
++----+--------+--------+------+---------+-----+-----+-------+----------+------+
+32 rows in set (0.00 sec)
+
+MariaDB [batch11am]> select * from student, fees where student.id = fees.sid;
++----+--------+--------+------+---------+-----+-----+-------+----------+------+
+| id | fname  | lname  | age  | subject | fid | sid | fees  | discount | paid |
++----+--------+--------+------+---------+-----+-----+-------+----------+------+
+|  1 | simran | grover |   20 | AWS     | 101 |   1 | 12000 |     2000 | 5000 |
+|  2 | Sahil  | Grover |   22 | Python  | 102 |   2 | 15000 |     2500 | 7000 |
+|  5 | Mihir  | Mehta  |   23 | Cloud   | 103 |   5 | 10000 |     1500 | 5000 |
+|  7 | Daivat | Shah   |   19 | Python  | 104 |   7 |  7000 |     1000 | 3500 |
++----+--------+--------+------+---------+-----+-----+-------+----------+------+
+4 rows in set (0.00 sec)
+
+MariaDB [batch11am]> select fname, lname from student, fees where student.id = fees.sid and fees>10000;
++--------+--------+
+| fname  | lname  |
++--------+--------+
+| simran | grover |
+| Sahil  | Grover |
++--------+--------+
+2 rows in set (0.00 sec)
+
+MariaDB [batch11am]> name and fees of student in jaipur;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'name and fees of student in jaipur' at line 1
+MariaDB [batch11am]> select * from address;
++-----+-----+----------------+-----------+--------+
+| aid | sid | street         | city      | state  |
++-----+-----+----------------+-----------+--------+
+| 101 |   1 | malviya nagar  | jaipur    | raj    |
+| 102 |   2 | vaishali nagar | jaipur    | raj    |
+| 103 |   3 | Jawahar Nagar  | Jaipur    | raj    |
+| 104 |   4 | tilak nagar    | delhi     | delhi  |
+| 105 |   5 | gandhi nagar   | ahemdabad | Gujrat |
+| 106 |   8 | patel nagar    | delhi     | delhi  |
++-----+-----+----------------+-----------+--------+
+6 rows in set (0.00 sec)
+
+MariaDB [batch11am]> select fname, lname ,fees from student, fees where student.id == fees.sid and id in (select sid from address where state = Jaipur)
+    -> select fname, lname ,fees from student, fees where student.id == fees.sid and id in (select sid from address where state = Jaipur);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= fees.sid and id in (select sid from address where state = Jaipur)
+select fname' at line 1
+MariaDB [batch11am]> select fname, lname ,fees from student, fees where student.id == fees.sid and id in (select sid from address where state = "Jaipur");
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= fees.sid and id in (select sid from address where state = "Jaipur")' at line 1
+MariaDB [batch11am]> select fname, lname ,fees from student, fees where student.id = fees.sid and id in (select sid from address where state = "Jaipur");
+Empty set (0.00 sec)
+
+MariaDB [batch11am]> select fname, lname ,fees from student, fees where student.id = fees.sid and id in (select sid from address where city = "Jaipur");
++--------+--------+-------+
+| fname  | lname  | fees  |
++--------+--------+-------+
+| simran | grover | 12000 |
+| Sahil  | Grover | 15000 |
++--------+--------+-------+
+2 rows in set (0.00 sec)
+
+MariaDB [batch11am]> select fname, fees from student, fees, address where student.id = fees.id and city = jaipur
+    -> ;
+ERROR 1054 (42S22): Unknown column 'fees.id' in 'where clause'
+MariaDB [batch11am]> select fname, fees from student, fees, address where student.id = fees.id and city = "jaipur");
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ')' at line 1
+MariaDB [batch11am]> select fname, fees from student, fees, address where student.id = fees.id and city = "jaipur";
+ERROR 1054 (42S22): Unknown column 'fees.id' in 'where clause'
+MariaDB [batch11am]> select fname, fees from student, fees, address where student.id = fees.sid and city = "jaipur";
++--------+-------+
+| fname  | fees  |
++--------+-------+
+| simran | 12000 |
+| Sahil  | 15000 |
+| Mihir  | 10000 |
+| Daivat |  7000 |
+| simran | 12000 |
+| Sahil  | 15000 |
+| Mihir  | 10000 |
+| Daivat |  7000 |
+| simran | 12000 |
+| Sahil  | 15000 |
+| Mihir  | 10000 |
+| Daivat |  7000 |
++--------+-------+
+12 rows in set (0.00 sec)
+
+MariaDB [batch11am]> select fname, fees from student, fees, address where student.id = fees.sid and city = "jaipur" and student.id=address.sid;
++--------+-------+
+| fname  | fees  |
++--------+-------+
+| simran | 12000 |
+| Sahil  | 15000 |
++--------+-------+
+2 rows in set (0.00 sec)
+
+MariaDB [batch11am]> select fname, lname, fees from student, fees where fees.sid = student.id and student.id in (select sid from address where city="jaipur");
++--------+--------+-------+
+| fname  | lname  | fees  |
++--------+--------+-------+
+| simran | grover | 12000 |
+| Sahil  | Grover | 15000 |
++--------+--------+-------+
+2 rows in set (0.00 sec)
+
+MariaDB [batch11am]> select user from mysql.user;
++--------------+
+| user         |
++--------------+
+| root         |
+| user1        |
+| root         |
+| myadmin      |
+| username     |
+| username1    |
+|              |
+| admin        |
+| adminad      |
+| adminadmin   |
+| akshay       |
+| aman         |
+| ayushi       |
+| bank_app     |
+| batch        |
+| batch415     |
+| batch4pm     |
+| batch5pm     |
+| batch715     |
+| flask        |
+| grras        |
+| html         |
+| intern       |
+| internship   |
+| kapil        |
+| mahima       |
+| nupur        |
+| pma          |
+| project      |
+| project1     |
+| ramesh       |
+| root         |
+| simran       |
+| simrangrover |
+| student      |
+| tannu        |
+| tarun        |
+| techno       |
+| user1        |
+| yogesh       |
++--------------+
+40 rows in set (0.00 sec)
+
+MariaDB [batch11am]> select user, password from mysql.user;
++--------------+-------------------------------------------+
+| user         | password                                  |
++--------------+-------------------------------------------+
+| root         |                                           |
+| root         |                                           |
+| root         |                                           |
+|              |                                           |
+| pma          |                                           |
+| bank_app     | *84BB5DF4823DA319BBF86C99624479A198E6EEE9 |
+| student      | *1308E0FCD43112F8D948AB093F54892CB7B220AA |
+| adminadmin   | *2470C0C06DEE42FD1618BB99005ADCA2EC9D1E19 |
+| admin        | *4ACFE3202A5FF5CF467898FC58AAB1D615029441 |
+| project1     | *4ACFE3202A5FF5CF467898FC58AAB1D615029441 |
+| flask        | *84BB5DF4823DA319BBF86C99624479A198E6EEE9 |
+| akshay       | *84BB5DF4823DA319BBF86C99624479A198E6EEE9 |
+| simran       | *2470C0C06DEE42FD1618BB99005ADCA2EC9D1E19 |
+| project      | *2470C0C06DEE42FD1618BB99005ADCA2EC9D1E19 |
+| username     | *2470C0C06DEE42FD1618BB99005ADCA2EC9D1E19 |
+| myadmin      | *2470C0C06DEE42FD1618BB99005ADCA2EC9D1E19 |
+| username1    | *4ACFE3202A5FF5CF467898FC58AAB1D615029441 |
+| batch4pm     | *2470C0C06DEE42FD1618BB99005ADCA2EC9D1E19 |
+| simrangrover | *2470C0C06DEE42FD1618BB99005ADCA2EC9D1E19 |
+| ramesh       | *2470C0C06DEE42FD1618BB99005ADCA2EC9D1E19 |
+| kapil        | *2470C0C06DEE42FD1618BB99005ADCA2EC9D1E19 |
+| tarun        | *2470C0C06DEE42FD1618BB99005ADCA2EC9D1E19 |
+| adminad      | *2470C0C06DEE42FD1618BB99005ADCA2EC9D1E19 |
+| html         | *2470C0C06DEE42FD1618BB99005ADCA2EC9D1E19 |
+| batch5pm     | *2470C0C06DEE42FD1618BB99005ADCA2EC9D1E19 |
+| nupur        | *2470C0C06DEE42FD1618BB99005ADCA2EC9D1E19 |
+| ayushi       | *2470C0C06DEE42FD1618BB99005ADCA2EC9D1E19 |
+| batch415     | *4ACFE3202A5FF5CF467898FC58AAB1D615029441 |
+| yogesh       | *4ACFE3202A5FF5CF467898FC58AAB1D615029441 |
+| mahima       | *2470C0C06DEE42FD1618BB99005ADCA2EC9D1E19 |
+| user1        | *2470C0C06DEE42FD1618BB99005ADCA2EC9D1E19 |
+| user1        | *2470C0C06DEE42FD1618BB99005ADCA2EC9D1E19 |
+| batch        | *2470C0C06DEE42FD1618BB99005ADCA2EC9D1E19 |
+| internship   | *196BDEDE2AE4F84CA44C47D54D78478C7E2BD7B7 |
+| intern       | *59C70DA2F3E3A5BDF46B68F5C8B8F25762BCCEF0 |
+| batch715     | *4ACFE3202A5FF5CF467898FC58AAB1D615029441 |
+| techno       | *2470C0C06DEE42FD1618BB99005ADCA2EC9D1E19 |
+| aman         | *F66EA46EEF47C133FCC240EE3C5830838B3A5C97 |
+| grras        | *2470C0C06DEE42FD1618BB99005ADCA2EC9D1E19 |
+| tannu        | *2470C0C06DEE42FD1618BB99005ADCA2EC9D1E19 |
++--------------+-------------------------------------------+
+40 rows in set (0.00 sec)
+
+MariaDB [batch11am]> select user, password, host from mysql.user;
++--------------+-------------------------------------------+-----------+
+| user         | password                                  | host      |
++--------------+-------------------------------------------+-----------+
+| root         |                                           | localhost |
+| root         |                                           | 127.0.0.1 |
+| root         |                                           | ::1       |
+|              |                                           | localhost |
+| pma          |                                           | localhost |
+| bank_app     | *84BB5DF4823DA319BBF86C99624479A198E6EEE9 | localhost |
+| student      | *1308E0FCD43112F8D948AB093F54892CB7B220AA | localhost |
+| adminadmin   | *2470C0C06DEE42FD1618BB99005ADCA2EC9D1E19 | localhost |
+| admin        | *4ACFE3202A5FF5CF467898FC58AAB1D615029441 | localhost |
+| project1     | *4ACFE3202A5FF5CF467898FC58AAB1D615029441 | localhost |
+| flask        | *84BB5DF4823DA319BBF86C99624479A198E6EEE9 | localhost |
+| akshay       | *84BB5DF4823DA319BBF86C99624479A198E6EEE9 | localhost |
+| simran       | *2470C0C06DEE42FD1618BB99005ADCA2EC9D1E19 | localhost |
+| project      | *2470C0C06DEE42FD1618BB99005ADCA2EC9D1E19 | localhost |
+| username     | *2470C0C06DEE42FD1618BB99005ADCA2EC9D1E19 | locahost  |
+| myadmin      | *2470C0C06DEE42FD1618BB99005ADCA2EC9D1E19 | locahost  |
+| username1    | *4ACFE3202A5FF5CF467898FC58AAB1D615029441 | locahost  |
+| batch4pm     | *2470C0C06DEE42FD1618BB99005ADCA2EC9D1E19 | localhost |
+| simrangrover | *2470C0C06DEE42FD1618BB99005ADCA2EC9D1E19 | localhost |
+| ramesh       | *2470C0C06DEE42FD1618BB99005ADCA2EC9D1E19 | localhost |
+| kapil        | *2470C0C06DEE42FD1618BB99005ADCA2EC9D1E19 | localhost |
+| tarun        | *2470C0C06DEE42FD1618BB99005ADCA2EC9D1E19 | localhost |
+| adminad      | *2470C0C06DEE42FD1618BB99005ADCA2EC9D1E19 | localhost |
+| html         | *2470C0C06DEE42FD1618BB99005ADCA2EC9D1E19 | localhost |
+| batch5pm     | *2470C0C06DEE42FD1618BB99005ADCA2EC9D1E19 | localhost |
+| nupur        | *2470C0C06DEE42FD1618BB99005ADCA2EC9D1E19 | localhost |
+| ayushi       | *2470C0C06DEE42FD1618BB99005ADCA2EC9D1E19 | localhost |
+| batch415     | *4ACFE3202A5FF5CF467898FC58AAB1D615029441 | localhost |
+| yogesh       | *4ACFE3202A5FF5CF467898FC58AAB1D615029441 | localhost |
+| mahima       | *2470C0C06DEE42FD1618BB99005ADCA2EC9D1E19 | localhost |
+| user1        | *2470C0C06DEE42FD1618BB99005ADCA2EC9D1E19 | 127.0.0.1 |
+| user1        | *2470C0C06DEE42FD1618BB99005ADCA2EC9D1E19 | localhost |
+| batch        | *2470C0C06DEE42FD1618BB99005ADCA2EC9D1E19 | localhost |
+| internship   | *196BDEDE2AE4F84CA44C47D54D78478C7E2BD7B7 | localhost |
+| intern       | *59C70DA2F3E3A5BDF46B68F5C8B8F25762BCCEF0 | localhost |
+| batch715     | *4ACFE3202A5FF5CF467898FC58AAB1D615029441 | localhost |
+| techno       | *2470C0C06DEE42FD1618BB99005ADCA2EC9D1E19 | localhost |
+| aman         | *F66EA46EEF47C133FCC240EE3C5830838B3A5C97 | localhost |
+| grras        | *2470C0C06DEE42FD1618BB99005ADCA2EC9D1E19 | localhost |
+| tannu        | *2470C0C06DEE42FD1618BB99005ADCA2EC9D1E19 | localhost |
++--------------+-------------------------------------------+-----------+
+40 rows in set (0.00 sec)
+
+MariaDB [batch11am]> create user 'batch11am'@'localhost' identified by 'admin';
+Query OK, 0 rows affected (0.03 sec)
+
+MariaDB [batch11am]> exit
+Bye
+
+Simran Grover@LAPTOP-JS358S5T c:\xampp
+# mysql -u batch11am -p
+Enter password:
+ERROR 1045 (28000): Access denied for user 'batch11am'@'localhost' (using password: NO)
+
+Simran Grover@LAPTOP-JS358S5T c:\xampp
+# mysql -u batch11am -p
+Enter password: *****
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 4
+Server version: 10.1.21-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2016, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> select databases;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'databases' at line 1
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| test               |
++--------------------+
+2 rows in set (0.00 sec)
+
+MariaDB [(none)]> exit
+Bye
+
+Simran Grover@LAPTOP-JS358S5T c:\xampp
+# mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 5
+Server version: 10.1.21-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2016, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> grant all privileges on batch11am.student to 'batch11am'@'localhost';
+Query OK, 0 rows affected (0.13 sec)
+
+MariaDB [(none)]> exit
+Bye
+
+Simran Grover@LAPTOP-JS358S5T c:\xampp
+# mysql -u batch11am -p
+Enter password: *****
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 6
+Server version: 10.1.21-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2016, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| batch11am          |
+| information_schema |
+| test               |
++--------------------+
+3 rows in set (0.00 sec)
+
+MariaDB [(none)]> use batch11am;
+Database changed
+MariaDB [batch11am]> show tables;
++---------------------+
+| Tables_in_batch11am |
++---------------------+
+| student             |
++---------------------+
+1 row in set (0.00 sec)
+
+MariaDB [batch11am]> select * from student;
++----+--------+--------+------+---------+
+| id | fname  | lname  | age  | subject |
++----+--------+--------+------+---------+
+|  1 | simran | grover |   20 | AWS     |
+|  2 | Sahil  | Grover |   22 | Python  |
+|  3 | Ajay   | Gupta  |   22 | Cloud   |
+|  4 | Vivek  | Uniyal |   21 | AWS     |
+|  5 | Mihir  | Mehta  |   23 | Cloud   |
+|  6 | Haresh | Parmar |   23 | Python  |
+|  7 | Daivat | Shah   |   19 | Python  |
+|  8 | Aman   | Gupta  |   22 | Linux   |
++----+--------+--------+------+---------+
+8 rows in set (0.00 sec)
+
+MariaDB [batch11am]> insert into student values(9, "Akshay", "Mehta", 22, "Linux");
+Query OK, 1 row affected (0.02 sec)
+
+MariaDB [batch11am]> select * from student;
++----+--------+--------+------+---------+
+| id | fname  | lname  | age  | subject |
++----+--------+--------+------+---------+
+|  1 | simran | grover |   20 | AWS     |
+|  2 | Sahil  | Grover |   22 | Python  |
+|  3 | Ajay   | Gupta  |   22 | Cloud   |
+|  4 | Vivek  | Uniyal |   21 | AWS     |
+|  5 | Mihir  | Mehta  |   23 | Cloud   |
+|  6 | Haresh | Parmar |   23 | Python  |
+|  7 | Daivat | Shah   |   19 | Python  |
+|  8 | Aman   | Gupta  |   22 | Linux   |
+|  9 | Akshay | Mehta  |   22 | Linux   |
++----+--------+--------+------+---------+
+9 rows in set (0.00 sec)
+
+MariaDB [batch11am]> exit
+Bye
+
+Simran Grover@LAPTOP-JS358S5T c:\xampp
+# mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 7
+Server version: 10.1.21-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2016, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> use batch11am;
+Database changed
+MariaDB [batch11am]> select * from student;
++----+--------+--------+------+---------+
+| id | fname  | lname  | age  | subject |
++----+--------+--------+------+---------+
+|  1 | simran | grover |   20 | AWS     |
+|  2 | Sahil  | Grover |   22 | Python  |
+|  3 | Ajay   | Gupta  |   22 | Cloud   |
+|  4 | Vivek  | Uniyal |   21 | AWS     |
+|  5 | Mihir  | Mehta  |   23 | Cloud   |
+|  6 | Haresh | Parmar |   23 | Python  |
+|  7 | Daivat | Shah   |   19 | Python  |
+|  8 | Aman   | Gupta  |   22 | Linux   |
+|  9 | Akshay | Mehta  |   22 | Linux   |
++----+--------+--------+------+---------+
+9 rows in set (0.00 sec)
+
+MariaDB [batch11am]>

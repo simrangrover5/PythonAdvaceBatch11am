@@ -1,0 +1,22 @@
+django-admin startproject blogproject
+blogproject --> blogproject ---> settings.py --> project settings  
+                manage.py        urls.py --> url or path
+                                 views.py --> functions (view)
+                                 wsgi.py  --> web server gateway interface 
+                                 asgi.py --> asynchronouos gateway interface 
+                                 __init__.py --> packages
+                
+Creation of APPS
+
+python manage.py startapp app1
+blogproject --> blogproject --> files 
+                manage.py 
+                app1 --> urls.py --> path of app 
+                        views.py --> to define the view 
+                        tests.py --> testcases for project 
+                        app.py --> show the name of app 
+                        models.py  --> tables 
+                        admin.py --> to register our models 
+                        __init__.py 
+                        templates
+                static 
