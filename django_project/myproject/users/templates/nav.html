@@ -1,0 +1,23 @@
+{% block head %}
+<html>
+    <head>
+        {% load static %}
+        <link rel="stylesheet" type="text/css" href="{% static 'main.css' %}"> 
+    </head>
+    <body>
+        <center><h1 id="one">BLOG WEBAPP</h1></center>
+        <div>
+            <ul>
+            <li><a href="/">HOME</a></li>
+            <li><a href="/login/">LOGIN</a></li>
+            <li><a href="#">REGISTER</a></li>
+            <li><a href="#">BLOGS</a></li>
+            <li><a href="#">CONTACT US</a></li>
+            </ul>
+        </div>
+        
+    </body>
+</html>
+{% endblock %}
+<!--background-repeat : no-repeat;
+background-size: cover;-->

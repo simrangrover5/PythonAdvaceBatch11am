@@ -1,0 +1,15 @@
+li{
+    display: inline;
+    padding: 50px;
+}
+a{
+    color: whitesmoke;
+    font-size: 30px;
+    text-decoration: none;
+}
+body{
+    background: linear-gradient(grey, #123456);
+}
+a:hover{
+    color: black;
+}

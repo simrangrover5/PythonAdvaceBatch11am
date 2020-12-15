@@ -1,0 +1,41 @@
+<html>
+    <head>
+        <style>
+            #form{
+                background-color: #ebebeb;
+                width: 50%;
+                height: 40%;
+                margin-top: 10%;
+            }
+            label{
+                color:lightcoral;
+                font-size: 30px;
+            }
+            form{
+                padding-top: 5%;
+            }
+            #log{
+                background-color: grey;
+                font-size: 20px;
+                height: 20%;
+                width: 20%;
+            }
+        </style>
+    </head>
+    <body>
+        {% include 'nav.html' %}
+        {% block head %}
+        {% endblock %}
+        <center>
+        <div id="form">
+        <h2 style="color: lightslategray;">{{ msg }}</h2>
+        <form method="POST" action="/afterlogin/">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="LOGIN" id="log">
+        </form>
+        </div>
+        </center>
+    </body>
+    
+</html>
