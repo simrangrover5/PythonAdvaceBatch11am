@@ -1,0 +1,22 @@
+1. Select Database server and database 
+2. Have connectivity of database in settings file 
+3. Create table using models.py file of particular app
+4. To integrate your tables with your database following commands are required
+    a. python manage.py makemigrations
+        this command create a file which we have to use in further commands 
+    b. python manage.py sqlmigrate users 0001 
+        It will return you the sql command which we will use in 3rd migration
+    c. python manage.py migrate 
+        It will migrate all the changes in models to database 
+
+
+To insert data in models we have 3 ways 
+1. Using database server or using sql commands
+2. Using django shell 
+3. Admin Panel
+4. Automatically through script
+
+to show your model in admin panel --> register your model in admin.py 
+
+### Migrations are very important and we have to perform migrations everytime 
+### we make changes in models.py file of any app 

@@ -1,5 +1,5 @@
 from django.shortcuts import render, HttpResponse
-from .forms import Login  # from forms.py import Login Class
+from .forms import *  # from forms.py import Login Class
 
 # Create your views here.
 def index(request):
@@ -19,5 +19,9 @@ def afterlogin(request):
         msg = "Invalid Details"
         form = Login()
         return render(request, "login.html", {"form" : form, "msg" : msg})
+    
+def register(request):
+    form = Signup()
+    return render(request, "signup.html", {'form' : form})
 
 # users --> urls, project --> urls
