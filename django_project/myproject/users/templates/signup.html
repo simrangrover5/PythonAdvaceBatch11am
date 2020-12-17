@@ -29,7 +29,7 @@
         <center>
         <div id="form">
         <h2 style="color: lightslategray;">{{ msg }}</h2>
-        <form method="POST" action="/afterlogin/">
+        <form method="POST" action="/aftersignup/">
             {% csrf_token %}
             {{ form.as_p }}
             <input type="submit" value="REGISTER" id="log">

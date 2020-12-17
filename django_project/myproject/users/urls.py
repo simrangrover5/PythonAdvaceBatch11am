@@ -6,4 +6,5 @@ urlpatterns = [
     path("login/", views.login),
     path("afterlogin/", views.afterlogin),
     path("register/", views.register),
+    path("aftersignup/", views.Aftersignup.as_view())
 ]
