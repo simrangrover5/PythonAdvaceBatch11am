@@ -27,8 +27,8 @@
         {% block head %}
         {% endblock %}
         <center>
+        <h2 style="color: lightcoral;">{{ msg }}</h2>
         <div id="form">
-        <h2 style="color: lightslategray;">{{ msg }}</h2>
         <form method="POST" action="/aftersignup/">
             {% csrf_token %}
             {{ form.as_p }}

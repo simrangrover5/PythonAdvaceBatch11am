@@ -11,5 +11,11 @@ class Signup(forms.Form):
     password = forms.CharField(required=True, widget=forms.PasswordInput)
     con_password = forms.CharField(required=True, widget=forms.PasswordInput, label="Confirm Password")
 
+class GetEmail(forms.Form):
+    email = forms.EmailField(required=True, max_length=200)
+
+class Getotp(forms.Form):
+    otp = forms.CharField(max_length=10)
+
 # <input type="email" name="email">
 # widget=forms.TextInput(attrs={'placeholder' : 'Enter Your Email'})

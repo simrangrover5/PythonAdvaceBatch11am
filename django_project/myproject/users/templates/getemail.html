@@ -30,12 +30,11 @@
         <center>
         <h2 style="color: lightcoral;">{{ msg }}</h2>
         <div id="form">
-        <form method="POST" action="/afterlogin/">
+        <form method="POST" action="/sendotp/">
             {% csrf_token %}
             {{ form.as_p }}
-            <input type="submit" value="LOGIN" id="log">
+            <input type="submit" value="SUBMIT" id="log">
         </form>
-        <a style='color:black;padding: 0;' href="/forgot/">Forgot Password?</a>
         </div>
         </center>
     </body>
