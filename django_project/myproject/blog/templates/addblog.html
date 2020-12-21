@@ -2,7 +2,6 @@
     <head>
         <style>
             #form{
-                background-color: #ebebeb;
                 width: 50%;
                 height: 55%;
                 margin-top: 5%;
@@ -23,13 +22,13 @@
         </style>
     </head>
     <body>
-        {% include 'nav.html' %}
+        {% include 'afterlogin.html' %}
         {% block head %}
         {% endblock %}
         <center>
         <h2 style="color: lightcoral;">{{ msg }}</h2>
         <div id="form">
-        <form method="POST" action="/aftersignup/" enctype="multipart/form-data">
+        <form method="POST" action="/changepass/">
             {% csrf_token %}
             {{ form.as_p }}
             <input type="submit" value="REGISTER" id="log">

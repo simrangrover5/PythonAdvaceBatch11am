@@ -19,31 +19,37 @@ def login(request):
     return render(request, "login.html", {'form' : obj})
 
 def afterlogin(request):
-    form = Login(request.POST)
-    if form.is_valid():
-        email = form.cleaned_data['email']
-        password = form.cleaned_data['password']
-        try:
-            obj = Adduser.objects.get(email=email)
-        except Exception as error:
-            msg = "No Such User"
-            form = Login()
-            return render(request, "login.html", {"msg" : msg, "form" : form})
-        else:
-            if obj.password == password:
-                request.session['email'] = email 
-                request.session['islogin'] = "true"
-                #return HttpResponse(f"{email} and {password}")
-                return render(request, "afterlogin.html")
-            else:
-                msg = "Password Is Not Correct"
+    if request.method == "GET":
+        if request.session.get("islogin"):
+            return render(request, "afterlogin.html")
+        form = Login()
+        return render(request, "login.html", {"form" : form})
+    else: 
+        form = Login(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data['email']
+            password = form.cleaned_data['password']
+            try:
+                obj = Adduser.objects.get(email=email)
+            except Exception as error:
+                msg = "No Such User"
                 form = Login()
                 return render(request, "login.html", {"msg" : msg, "form" : form})
+            else:
+                if obj.password == password:
+                    request.session['email'] = email 
+                    request.session['islogin'] = "true"
+                    #return HttpResponse(f"{email} and {password}")
+                    return render(request, "afterlogin.html")
+                else:
+                    msg = "Password Is Not Correct"
+                    form = Login()
+                    return render(request, "login.html", {"msg" : msg, "form" : form})
 
-    else:
-        msg = "Invalid Details"
-        form = Login()
-        return render(request, "login.html", {"form" : form, "msg" : msg})
+        else:
+            msg = "Invalid Details"
+            form = Login()
+            return render(request, "login.html", {"form" : form, "msg" : msg})
     
 def register(request):
     form = Signup()
@@ -55,7 +61,7 @@ class Aftersignup(View):
         return render(request, "signup.html", {'form' : form})
     
     def post(self, request):
-        form = Signup(request.POST)
+        form = Signup(request.POST, request.FILES)
         if form.is_valid():
             confirm = form.cleaned_data['con_password']
             email = form.cleaned_data['email']
@@ -67,6 +73,7 @@ class Aftersignup(View):
                     "lname" : form.cleaned_data['lname'],
                     "email" : form.cleaned_data['email'], # simran.grover@gmail.com, simran.grover@grras.com
                     "password" : form.cleaned_data['password'],
+                    "image" : form.cleaned_data['image']
                 } # for domain make like simran.grover.gmail
                 username = email.split("@")[0]
                 if Adduser.objects.filter(username=username):
@@ -123,7 +130,7 @@ def sendotp(request):
                 subject = "OTP TO CHANGE PASSWORD"
                 msg = f"""Welcome to BlogWeb 
                 Here is your otp to change your password {otp}"""
-                to_email = "simrangrover5@gmail.com"
+                to_email = email
                 from_email = "simrangrover5@gmail.com"
                 try:
                     send_mail(subject, msg, from_email, [to_email], auth_password=settings.EMAIL_HOST_PASSWORD)
@@ -158,6 +165,33 @@ def checkotp(request):
                 form = Login()
                 return render(request, "login.html", {"msg" : msg, "form" : form})
 
-                
+def profile(request):
+    data = Adduser.objects.get(email=request.session.get("email"))
+    return render(request, "profile.html", {"data" : data})
+
+def change(request):
+    form = Newpass()
+    return render(request, "newpass.html", {"form" : form})
+
+def changepass(request):
+    if request.method == "GET":
+        form = Newpass()
+        return render(request, "newpass.html", {"form" : form})
+    else: 
+        form = Newpass(request.POST)
+        if form.is_valid():
+            p1 = form.cleaned_data['password']
+            p2 = form.cleaned_data['con_password']
+            if p1 == p2:
+                obj = Adduser.objects.get(email = request.session.get('email'))
+                obj.password = p1
+                obj.save()
+                msg = "Successfully Changed Your Password"
+                data = Adduser.objects.get(email=request.session.get("email"))
+                return render(request, "profile.html", {"msg" : msg, "data" : data})
+            else:
+                msg = "Incorrect Password...."
+                form = Newpass()
+                return render(request, "newpass.html", {"form" : form, "msg" : msg})
 # users --> urls, project --> urls
 # scenario for making blog website

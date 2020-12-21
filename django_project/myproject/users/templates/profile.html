@@ -1,0 +1,28 @@
+<html>
+    <head>
+        <style>
+            label{
+                color:lightcoral;
+                font-size: 50px;
+            }
+            #info{
+                margin-top: 10%;
+            }
+        </style>
+    </head>
+    <body>
+        {% include 'afterlogin.html' %}
+        {% block head %}
+        {% endblock %}
+        <center>
+            <h2>{{ msg }}</h2>
+            <div id="info">
+            <label>NAME : {{ data.fname.upper }} {{ data.lname.upper }}</label><br>
+            <label>USERNAME : {{ data.username }}</label><br>
+            <label>EMAIL : {{ data.email }}</label><br>
+            <a href="/change/" style="color: #123456;">ChangePassword</a>
+            </div>
+        </center>
+    </body>
+    
+</html>

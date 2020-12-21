@@ -7,6 +7,7 @@ class Adduser(models.Model):
     email = models.EmailField(primary_key=True)
     username = models.CharField(unique=True, max_length=200)
     password = models.CharField(max_length=200)
+    image = models.ImageField(upload_to="static/images")
 
     class Meta:
         ordering = ['fname']
