@@ -1,0 +1,19 @@
+<html>
+    <head>
+        <style>
+            body{
+                background-color: black;
+            }
+            h1,p,h3{
+                color: white;
+            }
+        </style>    
+    </head>
+    <body>
+        {% for dic in data %}
+        <h1>{{ dic.title }}</h1>
+        <p>{{ dic.post }}</p>
+        <h3>{{ dic.author }} {{ dic.date }}</h3><hr>
+        {% endfor %}
+    </body>
+</html>
